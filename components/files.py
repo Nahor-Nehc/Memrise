@@ -34,8 +34,8 @@ class Chapter:
     return f"<Chapter {self.number} with {len(self.verses)} verses>"
 
 class Book:
-  def __init__(self, name, chapters: dict[int, Chapter] = {}):
-    self.name = name
+  def __init__(self, number, chapters: dict[int, Chapter] = {}):
+    self.number = number
     self.chapters = chapters
   
   def set_chapters(self, chapters:  dict[int, Chapter] = {}):
@@ -46,6 +46,9 @@ class Book:
   
   def add_chapter(self, number, chapter:Chapter):
     self.chapters[number] = chapter
+  
+  def __repr__(self):
+    return f"<Book: \"{BOOKS[self.number]}\" with {len(self.chapters)} chapters>"
 
 def get_filename(book_index):
   return BOOKS[book_index] + ".txt"
@@ -57,7 +60,7 @@ def get_book_contents(filename):
   
   return contents
 
-def process_contents(contents) -> Book:
+def process_contents(book_index, contents) -> Book:
   chapters = {}
   
   current_chapter = 1
@@ -76,11 +79,12 @@ def process_contents(contents) -> Book:
     
   chapters[current_chapter] = chapter
   
-  return Book(chapters)
+  return Book(book_index, chapters)
 
-def process(book_index):
+def process(book_index) -> Book:
   filename = get_filename(book_index)
   contents = get_book_contents(filename)
-  contents = process_contents(contents)
+  return process_contents(book_index, contents)
 
-process(BOOKS.index("1 John"))
+def get():
+  return [process(book) for book in range(len(BOOKS))]
