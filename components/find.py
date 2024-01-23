@@ -1,6 +1,7 @@
 import random as rd
 import os
 from components.constants import BOOKS
+from components.files import process
 
 def standardise_books_input(books:tuple[str, ...]):
   """
@@ -18,6 +19,7 @@ def standardise_books_input(books:tuple[str, ...]):
   return [int(book) if book.isnumeric() else BOOKS.index(book) for book in books]
 
 def check_books_input(books:tuple[str, ...]):
+  """returns all books if no books are provided"""
   book = BOOKS if not books else list(books)
   return book
 
@@ -42,7 +44,8 @@ def rand_chapter(*books:str):
   input books as full name of book OR the index in BOOKS
   """
   
-  books = check_books_input(books)
+  book = rand_book(books)
+  return rd.choice()
   
 def rand_verse(book, chapter):
   """
@@ -52,4 +55,3 @@ def rand_verse(book, chapter):
   
   input books as full name of book OR the index in BOOKS
   """
-
