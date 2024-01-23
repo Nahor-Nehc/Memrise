@@ -2,16 +2,16 @@ import os
 from components.find import *
 from components.files import *
 
-# print(rand_book("Romans", "Genesis"))
-# print(rand_book())
-# print("======")
+import time
+import matplotlib.pyplot as plt
 
-# print(get_book_contents(0))
+times = []
 
-# print(rand_chapter("MAT", "MRK"))
-# print()
-# print(rand_chapter("NAH"))
-# print()
-# print(rand_chapter())
-# print()
-# print(rand_chapter("NAHP"))
+for i in range(100):
+  start = time.perf_counter_ns()
+  l = get()
+  end = time.perf_counter_ns()
+  times.append((end - start)*(10**(-1*9)))
+
+plt.hist(times)
+plt.show()
